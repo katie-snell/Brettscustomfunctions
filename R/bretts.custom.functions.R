@@ -470,6 +470,7 @@ pick_mi <- function(mi, pattern) {
 #' @param rawdata the data frame
 #' @param quiet whether the function should output information messages or be quiet (default is to output)
 #' @export
+#' @examples
 #' @return the data frame with pre and post cyc as well as clumped isotope information
 # parse measurement info
 clumpedbyCyc <- function (rawdata){
@@ -662,6 +663,7 @@ clumpedbyCyc <- function (rawdata){
 #--------------------------------------------------------------------------------------------------
 #' @param flatlist.Cyc the data frame normaly from clumpedbyCyc
 #' @param quiet whether the function should output information messages or be quiet (default is to output)
+#' @examples
 #' @export
 #' @return the data frame with acquisition level clumped isotope information
 # parse measurement info
@@ -706,6 +708,7 @@ clumpedCyctoAcquisition<-  function(flatlist.Cyc) {
 #--------------------------------------------------------------------------------------------------
 #' @param combined_data_acquisition the data frame normaly from clumpedCyctoAcquisition
 #' @param quiet whether the function should output information messages or be quiet (default is to output)
+#' @examples
 #' @export
 #' @return the data frame with grouped and averaged acquisition level clumped isotope information
 # parse measurement info
