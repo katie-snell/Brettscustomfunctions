@@ -376,15 +376,15 @@ smallflatlist_fixed_ref_gas <-function(obj){
 #' @param data the data frame
 #' @param d45 column (in permil)
 #' @param d46 column (in permil)
-#' @param ref_17R the 17O/16O reference ratio, VSMOW by default (value from #from Gonfianti et al, 1993)
-#' @param ref_18R the 18O/16O reference ratio, VSMOW by default (value from #from Gonfianti et al, 1993)
+#' @param ref_17R the 17O/16O reference ratio, VSMOW by default (value from #from Brand et al, 2010)
+#' @param ref_18R the 18O/16O reference ratio, VSMOW by default (value from #from Brand et al, 2010)
 #'
-#' @param lambda the mass dependent scaling coefficient for the oxygen isotopes, default 0.52 (value from from Gonfianti et al, 1993)
+#' @param lambda the mass dependent scaling coefficient for the oxygen isotopes, default 0.528 (value from from Brand et al, 2010)
 #' @param d_max the maximum +/- delta value to consider in the root finding [in permil], should not need to change this unless samples are heavily enriched
 #' @param quiet whether the function should output information messages or be quiet (default is to output)
 #' @export
 #' @return the data frame with corrected 17O
-correct_CO2_for_17O <- function (data, d45, d46, ref_17R = 0.0003799000, ref_13R=0.0112372000, ref_18R = 0.0020052000, lambda = 0.5164, d_max = 1000) {
+correct_CO2_for_17O <- function (data, d45, d46, ref_17R = 0.0003931, ref_13R=0.011180, ref_18R = 0.00208835, lambda = 0.528, d_max = 1000) {
 
   if (missing(d45)) stop("please specify the column that holds the d45 data")
   if (missing(d46)) stop("please specify the columm that holds the d46 data")
