@@ -682,6 +682,8 @@ clumpedCyctoAcquisition<-  function(flatlist.Cyc) {
       Method = Method[1],
       d45.stdev= sd(d45),
       d45 = mean(d45),
+      d46.stdev = sd(d46),
+      d46 = mean(d46),
       d47.stdev= sd(d47),
       d47 = mean(d47),
       d48.stdev = sd(d48),
