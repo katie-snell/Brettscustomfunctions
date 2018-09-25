@@ -488,6 +488,7 @@ clumpedbyCyc <- function (rawdata){
                         Yield = pick_mi(.x, "left side"),
                         lp = pick_mi(.x, "l_p"),
                         rp = pick_mi(.x, "r_p"),
+                        pc = pick_mi(.x, "PC"),
                         bgrd = pick_mi(.x, "Background")
                       )
       )
@@ -499,11 +500,13 @@ clumpedbyCyc <- function (rawdata){
             regex = "mBar l ([0-9.]+)   l_p ([0-9.]+)") %>%
     extract(rp, into = c("RightPressure", "RightBellows"),
             regex = "mBar r ([0-9.]+)   r_p ([0-9.]+)") %>%
+    extract(pc, into = c("PC"),
+            regex = "PC \\[([0-9.-]+)") %>%
     extract(bgrd, into = str_c("v", c("44", "45", "46", "47", "47.5", "48", "49"), ".background"),
             regex = str_c(rep("([0-9.-]+) mV,?", 7), collapse = "")) %>%
     # turn into numbers
     mutate_at(
-      vars(Yield, LeftPressure, LeftBellows, RightPressure, RightBellows, ends_with("background")),
+      vars(Yield, LeftPressure, LeftBellows, RightPressure, RightBellows, PC, ends_with("background")),
       funs(parse_number)
     ) %>%
     # discard unnecessary columns
