@@ -405,10 +405,14 @@ correct_CO2_for_17O <- function (data, d45, d46, ref_17R = 0.0003931, ref_13R=0.
 
   #' expects raw delta values (i.e. NOT in permil)
   calc_d18 <- function(d45, d46) {
-    mapply(function(.d45, .d46) {
-      uniroot(function(x) d18_root_eq(x, .d45, .d46), lower = -d_max/1000, upper = d_max/1000, tol = 1e-9)$root
-    }, d45, d46)
-  }
+      na_idx <- is.na(d45) | is.na(d46)
+      out <- rep(NA_real_, length(d45))
+      out[!na_idx] <- 
+        mapply(function(.d45, .d46) {
+          uniroot(function(x) d18_root_eq(x, .d45, .d46), lower = -d_max/1000, upper = d_max/1000, tol = 1e-9)$root
+        }, d45[!na_idx], d46[!na_idx])
+      return(out)
+    }
 
   calc_d13 <- function(d18, d45) {
     d17 <- md_scale_delta(d18, lambda, unit = 1)
