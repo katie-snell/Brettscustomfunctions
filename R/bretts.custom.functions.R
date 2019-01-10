@@ -664,7 +664,7 @@ clumpedbyCyc <- function (rawdata, lambda = 0.528){
     D47full = D47-D46-D45,
     D48full = D48-D46-D46,
     runinfo ="",
-    Donotuse = TRUE
+    Donotuse = FALSE
 
   )
 }
