@@ -348,14 +348,14 @@ smallflatlist_fixed_ref_gas <-function(obj){
   Preparation <- obj$file_info$Preparation
   file_datetime <-obj$file_info$file_datetime
   measurement_info_part <- obj$file_info$measurement_info
-  Yeild <- try(as.numeric(sub("\",.*","", sub(".*left side ","", measurement_info_part))))
+  Yield <- try(as.numeric(sub("\",.*","", sub(".*left side ","", measurement_info_part))))
   LeftPressure <- as.numeric(sub("  l_p.*","", sub(".*mBar l ", "", measurement_info_part)))
   RightPressure <- as.numeric(sub("  r_p.*","", sub(".*mBar r ", "", measurement_info_part)))
   LeftBellows <- as.numeric(sub("%.*","", sub(".*l_p", "", measurement_info_part)))
   RightBellows <- as.numeric(sub("%.*","", sub(".*r_p ", "", measurement_info_part)))
   v44.mV <- first(obj$raw_data$v44.mV)
 
-  lineofsmallflatlist <- data_frame(Analysis,Method,file_datetime,Identifier1,Identifier2,Preparation, meand45,semd45,sdd45,meand46,semd46,sdd46,meand47,semd47,sdd47,meand48,semd48,sdd48,meand49,semd49,sdd49,mean(D47full),mean(D48full),samplemeand13C,samplemeand18O, PB,Yeild, LeftPressure, RightPressure,LeftBellows,RightBellows, v44.mV)
+  lineofsmallflatlist <- data_frame(Analysis,Method,file_datetime,Identifier1,Identifier2,Preparation, meand45,semd45,sdd45,meand46,semd46,sdd46,meand47,semd47,sdd47,meand48,semd48,sdd48,meand49,semd49,sdd49,mean(D47full),mean(D48full),samplemeand13C,samplemeand18O, PB,Yield, LeftPressure, RightPressure,LeftBellows,RightBellows, v44.mV)
 
   AcquisitionCorrectedData <- list()
   AcquisitionCorrectedData$lineofsmallflatlist <- lineofsmallflatlist
@@ -384,7 +384,7 @@ smallflatlist_fixed_ref_gas <-function(obj){
 #' @param quiet whether the function should output information messages or be quiet (default is to output)
 #' @export
 #' @return the data frame with corrected 17O
-correct_CO2_for_17O <- function (data, d45, d46, ref_17R = 0.0003931, ref_13R=0.011180, ref_18R = 0.00208835, lambda = 0.528, d_max = 1000) {
+correct_CO2_for_17O <- function (data, d45, d46, ref_17R = 0.000393, ref_13R=0.011180, ref_18R = 0.00208835, lambda = 0.528, d_max = 1000) {
 
   if (missing(d45)) stop("please specify the column that holds the d45 data")
   if (missing(d46)) stop("please specify the columm that holds the d46 data")
@@ -477,7 +477,7 @@ pick_mi <- function(mi, pattern) {
 #' @examples
 #' @return the data frame with pre and post cyc as well as clumped isotope information
 # parse measurement info
-clumpedbyCyc <- function (rawdata){
+clumpedbyCyc <- function (rawdata, lambda = 0.528){
   raw_data_w_measurement_info <-
     rawdata %>%
     # nest to run the operations on the measurement info only once for each file
@@ -580,7 +580,7 @@ clumpedbyCyc <- function (rawdata){
   combined_data <- combined_data %>% mutate(
     refR13 = ((`ref d 13C/12C`/1000)+1)*R13VPDB,
     refR18 = ((`ref d 18O/16O`/1000)+1)*R18VSMOW,
-    refR17 = ((refR18/R18VSMOW)^0.5164)*R17VSMOW,
+    refR17 = ((refR18/R18VSMOW)^lambda)*R17VSMOW,
     ref12C = 1/(1+refR13),
     ref13C = 1-ref12C,
     ref16O = 1/(1+refR18+refR17),
@@ -588,7 +588,7 @@ clumpedbyCyc <- function (rawdata){
     ref17O = ref16O*refR17,
     sampleR13 = ((d13C/1000)+1)*R13VPDB,
     sampleR18 = ((d18O/1000)+1)*R18VSMOW,
-    sampleR17 = ((sampleR18/R18VSMOW)^0.5164)*R17VSMOW,
+    sampleR17 = ((sampleR18/R18VSMOW)^lambda)*R17VSMOW,
     sample12C = 1/(1+sampleR13),
     sample13C = 1-sample12C,
     sample16O = 1/(1+sampleR18+sampleR17),
