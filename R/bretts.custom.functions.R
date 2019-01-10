@@ -687,6 +687,8 @@ clumpedCyctoAcquisition<-  function(flatlist.Cyc) {
       file_datetime =file_datetime[1],
       mass=as.numeric(`Identifier 2`[1]),
       Preparation = Preparation[1],
+      runinfo = runinfo [1],
+      Donotuse = Donotuse[1],
       Yield = Yield[1],
       Method = Method[1],
       d45.stdev= sd(d45),
