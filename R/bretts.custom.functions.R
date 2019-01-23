@@ -146,6 +146,7 @@ smallflatlist <-function(obj){
 
   D47full <- D47-D46-D45
   D48full <- D48-D46-D46
+  D49full <- D49-D46-D46-D45
 
   #back to geeen box
 
@@ -334,6 +335,7 @@ smallflatlist_fixed_ref_gas <-function(obj){
 
   D47full <- D47-D46-D45
   D48full <- D48-D46-D46
+  D49full <- D49-D46-D46-D45
 
   #back to geeen box
 
@@ -663,6 +665,7 @@ clumpedbyCyc <- function (rawdata, lambda = 0.528){
 
     D47full = D47-D46-D45,
     D48full = D48-D46-D46,
+    D49full = D49-D46-D46-D45
     runinfo ="",
     Donotuse = FALSE
 
@@ -705,6 +708,8 @@ clumpedCyctoAcquisition<-  function(flatlist.Cyc) {
       D47full= mean(D47full),
       D48.stdev = sd(D48full),
       D48full= mean(D48full),
+      D49.stdev = sd(D49full),
+      D49full= mean(D49full),
       d13C.stdev= sd(d13C),
       d13C =  mean(d13C),
       d18O.stdev= sd(d18O),
